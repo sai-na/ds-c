@@ -35,7 +35,7 @@ void enqueue(int a)
 {
 
 	if (isFull())
-		printf("Queue Overfolw");
+		printf("Queue Overflow");
 
 	else
 	{
@@ -52,7 +52,7 @@ void dequeue()
 		printf("Queue underflow");
 	else
 	{
-		printf(" The popped element element is %d", queue[front]);
+		printf(" The popped element  is %d", queue[front]);
 		front++;
 		display();
 	}
@@ -66,7 +66,7 @@ void main()
 	do
 	{
 
-		printf("Enter your choice 1. Enqueue 2. Dequeue 3. Display 4 .Exit");
+		printf("Enter your choice \n 1. Enqueue \n 2. Dequeue \n 3. Display \n 4 .Exit \n \n");
 
 		scanf("%d", &choice);
 
@@ -89,6 +89,9 @@ void main()
 
 		case 4:
 			break;
+
+		default:
+			printf("Invalid choice");
 		}
 	}
 

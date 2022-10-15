@@ -51,7 +51,7 @@ int push(int data)
 	{
 		top = top - 1;
 
-		printf("Coudn't insert");
+		printf("Can't push %d, stack is full", data);
 	}
 }
 
@@ -92,7 +92,7 @@ void main()
 		case 4:
 			break;
 		default:
-			break;
+			printf("Invalid choice");
 		}
 	} while (choice != 4);
 }
