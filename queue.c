@@ -1,99 +1,98 @@
-#include <stdio.h>
+#include<stdio.h>
 #define MaxSize 5
-int queue[5];
-int rear = -1;
-int front = 0;
+int queue[MaxSize],front=-1,rear=-1;
 
-void display()
-{
 
-	int i;
-	printf("The queue is :");
-	for (i = front; i <= rear; i++)
-		printf("%d \n", queue[i]);
+
+
+//display
+
+void display (){
+	if(isEmpty()) 	printf("\n Queue underflow error : the queue is empty \n");
+	else{
+		printf("\n The queue is :");
+		for(int i = front ; i<=rear ; i++) printf("%d ", queue[i] );
+		printf("\n");
+	}
 }
 
-int isFull()
-{
 
-	if (rear >= MaxSize - 1) // array index
+int isEmpty(){
+	if(  (front>rear) )
 		return 1;
 	else
 		return 0;
 }
 
-int isEmpty()
-{
-
-	if (front > rear)
+int isFull(){
+	if(rear >=(MaxSize-1))
 		return 1;
 	else
-		return 0;
-}
+	 	return 0;
+	 	
+	 	}
 
-void enqueue(int a)
-{
 
-	if (isFull())
-		printf("Queue Overflow");
 
-	else
-	{
+
+
+
+
+
+	
+	
+	
+// enqueue
+void enqueue(int data ){
+	
+	if(isFull()) printf("Queue is full");
+	else{
+		if(front == -1) front = 0;				
 		rear++;
-		queue[rear] = a;
+		queue[rear] = data;
 		display();
+	
 	}
 }
 
-void dequeue()
-{
+//dequeue
 
-	if (isEmpty())
-		printf("Queue underflow");
-	else
-	{
-		printf(" The popped element  is %d", queue[front]);
-		front++;
+void dequeue()	{
+
+	if(isEmpty()) 	printf("\n Queue underflow error : the queue is empty \n");
+	else {
+		printf("\n The removed element is %d \n " , queue[front]);
+		front ++ ;
 		display();
-	}
+}
 }
 
-void main()
-{
 
-	int choice, a;
 
-	do
-	{
+void main(){
+	printf("Enter your choice:");
 
-		printf("Enter your choice \n 1. Enqueue \n 2. Dequeue \n 3. Display \n 4 .Exit \n \n");
-
-		scanf("%d", &choice);
-
-		switch (choice)
-		{
-
-		case 1:
-			printf("Enter element to be added to the queue ");
-			scanf("%d", &a);
-			enqueue(a);
-			break;
-
-		case 2:
-			dequeue();
-			break;
-
-		case 3:
-			display();
-			break;
-
-		case 4:
-			break;
-
-		default:
-			printf("Invalid choice");
+	int flag,data;
+	do{
+		printf("1.Enqueu\n2.Dequeue\n3.Display\n4.Exit\n");
+		printf("enter your choice: ");
+		scanf("%d",&flag);
+		switch(flag){
+			case 1:
+				printf("enter data to be added: ");
+				scanf("%d",&data);
+				enqueue(data);
+			       break;
+			case 2:dequeue();
+			       break;
+			case 3:display();
+				break;
+			case 4:
+				break;;
+			default:printf("invalid choice\n");
 		}
+		}
+		while(flag!=4);
+			       	       	
 	}
-
-	while (choice != 4);
-}
+	
