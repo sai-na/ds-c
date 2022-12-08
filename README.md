@@ -1,4 +1,4 @@
 # ds-c
 
 
- ## exp-7 : linear search
+ ## exp-8 : linear search
