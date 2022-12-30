@@ -29,10 +29,10 @@ node_t *insert_at_tail(node_t *head, node_t *node_to_insert)
     temp->next = node_to_insert;
 }
 // insert at head of list
-node_t *insert_at_head(node_t **head, node_t *node_to_insert)
+node_t *insert_at_head(node_t *head, node_t *node_to_insert)
 {
-    node_to_insert->next = *head;
-    *head = node_to_insert;
+    node_to_insert->next = head;
+    return node_to_insert;
 }
 
 // print nodes
@@ -63,6 +63,24 @@ node_t *insert_at_postion(node_t *head, node_t *node_to_insert, int position)
     printf(" down %d c = %d  \t", temp->data, position);
     node_to_insert->next = temp->next;
     temp->next = node_to_insert;
+}
+
+struct node *recursiveReverseLL(struct node *first)
+{
+
+    if (first == NULL)
+        return NULL; // list does not exist.
+
+    if (first->next == NULL)
+        return first; // list with only one node.
+
+    struct node *rest = recursiveReverseLL(first->next); // recursive call on rest.
+
+    first->next->next = first; // make first; next to the last node in the reversed rest.
+
+    first->next = NULL; // since first is the new last, make its next NULL.
+
+    return rest; // rest now points to the head of the reversed list.
 }
 
 bool isTail(node_t *head, int position)
@@ -144,7 +162,7 @@ int main()
             else
             {
                 tmp = create_new_node(input);
-                insert_at_head(&head, tmp);
+                head = insert_at_head(head, tmp);
             }
 
             printList(head);
@@ -199,6 +217,15 @@ int main()
                 insert_at_postion(head, tmp, position);
             }
 
+            printList(head);
+
+            break;
+        }
+
+        case 6:
+        { /*  Print */
+
+            head = recursiveReverseLL(head);
             printList(head);
 
             break;
