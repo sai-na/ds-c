@@ -17,14 +17,14 @@ int checkPrime(int n)
   int i;
   if (n == 1 || n == 0)
   {
-  return 0;
+    return 0;
   }
   for (i = 2; i < n / 2; i++)
   {
-  if (n % i == 0)
-  {
-    return 0;
-  }
+    if (n % i == 0)
+    {
+      return 0;
+    }
   }
   return 1;
 }
@@ -32,11 +32,11 @@ int getPrime(int n)
 {
   if (n % 2 == 0)
   {
-  n++;
+    n++;
   }
   while (!checkPrime(n))
   {
-  n += 2;
+    n += 2;
   }
   return n;
 }
@@ -46,8 +46,8 @@ void init_array()
   array = (struct set *)malloc(capacity * sizeof(struct set));
   for (int i = 0; i < capacity; i++)
   {
-  array[i].key = 0;
-  array[i].data = 0;
+    array[i].key = 0;
+    array[i].data = 0;
   }
 }
 void insert(int key, int data)
@@ -55,18 +55,18 @@ void insert(int key, int data)
   int index = hashFunction(key);
   if (array[index].data == 0)
   {
-  array[index].key = key;
-  array[index].data = data;
-  size++;
-  printf("\n Key (%d) has been inserted \n", key);
+    array[index].key = key;
+    array[index].data = data;
+    size++;
+    printf("\n Key (%d) has been inserted \n", key);
   }
   else if (array[index].key == key)
   {
-  array[index].data = data;
+    array[index].data = data;
   }
   else
   {
-  printf("\n Collision occured  \n");
+    printf("\n Collision occured  \n");
   }
 }
 void remove_element(int key)
@@ -74,14 +74,14 @@ void remove_element(int key)
   int index = hashFunction(key);
   if (array[index].data == 0)
   {
-  printf("\n This key does not exist \n");
+    printf("\n This key does not exist \n");
   }
   else
   {
-  array[index].key = 0;
-  array[index].data = 0;
-  size--;
-  printf("\n Key (%d) has been removed \n", key);
+    array[index].key = 0;
+    array[index].data = 0;
+    size--;
+    printf("\n Key (%d) has been removed \n", key);
   }
 }
 void display()
@@ -89,14 +89,14 @@ void display()
   int i;
   for (i = 0; i < capacity; i++)
   {
-  if (array[i].data == 0)
-  {
-    printf("\n array[%d]: / ", i);
-  }
-  else
-  {
-    printf("\n key: %d array[%d]: %d \t\n", array[i].key, i, array[i].data);
-  }
+    if (array[i].data == 0)
+    {
+      printf("\n array[%d]: / ", i);
+    }
+    else
+    {
+      printf("\n key: %d array[%d]: %d \t\n", array[i].key, i, array[i].data);
+    }
   }
 }
 int size_of_hashtable()
@@ -109,41 +109,41 @@ int main()
   int c = 0;
   init_array();
 
-  for(;;)
+  for (;;)
   {
-  printf("1.Insert item in the Hash Table"
-     "\n2.Remove item from the Hash Table"
-     "\n3.Check the size of Hash Table"
-     "\n4.Display a Hash Table"
-     "\n5.Exit"
-     "\n\n Please enter your choice: ");
+    printf("1.Insert item in the Hash Table"
+           "\n2.Remove item from the Hash Table"
+           "\n3.Check the size of Hash Table"
+           "\n4.Display a Hash Table"
+           "\n5.Exit"
+           "\n\n Please enter your choice: ");
 
-  scanf("%d", &choice);
-  switch (choice)
-  {
-  case 1:
-    printf("Enter key -:\t");
-    scanf("%d", &key);
-    printf("Enter data -:\t");
-    scanf("%d", &data);
-    insert(key, data);
-    break;
-  case 2:
-    printf("Enter the key to delete-:");
-    scanf("%d", &key);
-    remove_element(key);
-    break;
-  case 3:
-    n = size_of_hashtable();
-    printf("Size of Hash Table is-:%d\n", n);
-    break;
-  case 4:
-    display();
-    break;
-  case 5:
-    exit(0);
-  default:
-    printf("Invalid Input\n");
-  }
+    scanf("%d", &choice);
+    switch (choice)
+    {
+    case 1:
+      printf("Enter key -:\t");
+      scanf("%d", &key);
+      printf("Enter data -:\t");
+      scanf("%d", &data);
+      insert(key, data);
+      break;
+    case 2:
+      printf("Enter the key to delete-:");
+      scanf("%d", &key);
+      remove_element(key);
+      break;
+    case 3:
+      n = size_of_hashtable();
+      printf("Size of Hash Table is-:%d\n", n);
+      break;
+    case 4:
+      display();
+      break;
+    case 5:
+      exit(0);
+    default:
+      printf("Invalid Input\n");
+    }
   }
 }
