@@ -18,21 +18,21 @@ void insertionSort(int arr[], int n)
 void printArray(int arr[], int n)
 {
 	int i;
-	printf("\n The Sorted Array is : ")
+	printf("\n The Sorted Array is : ");
 	for (i = 0; i < n; i++)
 		printf("\n%d ", arr[i]);
 	printf("\n");
 }
 int main()
 {
-	int arr[50],m,i;
+	int arr[50], m, i;
 	printf("Enter the Number of terms in the array : ");
-	scanf("%d",&m);
+	scanf("%d", &m);
 	printf("\nEnter the array ELements \n");
-	for(i=0;i<m;i++)
+	for (i = 0; i < m; i++)
 	{
-	printf("\nElement[%d] : ",i+1);
-	scanf("%d",&arr[i]);
+		printf("\nElement[%d] : ", i + 1);
+		scanf("%d", &arr[i]);
 	}
 
 	insertionSort(arr, m);

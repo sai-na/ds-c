@@ -65,7 +65,7 @@ node_t *insert_at_postion(node_t *head, node_t *node_to_insert, int position)
     temp->next = node_to_insert;
 }
 
-struct node *recursiveReverseLL(struct node *first)
+node_t *recursiveReverseLL(node_t *first)
 {
 
     if (first == NULL)
@@ -74,7 +74,7 @@ struct node *recursiveReverseLL(struct node *first)
     if (first->next == NULL)
         return first; // list with only one node.
 
-    struct node *rest = recursiveReverseLL(first->next); // recursive call on rest.
+    node_t *rest = recursiveReverseLL(first->next); // recursive call on rest.
 
     first->next->next = first; // make first; next to the last node in the reversed rest.
 
@@ -133,6 +133,55 @@ bool isEmpty(node_t *head)
     }
 }
 
+node_t *delete_start(node_t *head)
+{
+    if (head == NULL)
+    {
+        printf("Nothing to delete!!!\n");
+    }
+
+    else
+    {
+        node_t *ptr = head;
+        head = head->next;
+        free(ptr);
+    }
+
+    return head;
+}
+
+// delete last node in linked list
+
+node_t *delete_end(node_t *head)
+{
+    if (head == NULL)
+    {
+        printf("Nothing to delete!!!\n");
+        return NULL;
+    }
+    else if (head->next == NULL)
+    {
+        head = NULL;
+        free(head);
+        printf("\nOnly node of the list deleted ...");
+        return NULL;
+    }
+    else
+    {
+        node_t *ptr1 = head;
+        node_t *ptr = ptr1->next;
+        while (ptr->next != NULL)
+        {
+            ptr1 = ptr;
+            ptr = ptr->next;
+        }
+        ptr1->next = NULL;
+        free(ptr);
+        printf("\nDeleted Node from the last ...");
+        return head;
+    }
+}
+
 int main()
 {
 
@@ -143,7 +192,7 @@ int main()
 
     while (choice != 6)
     {
-        printf("Menu \n 1. Insert at head \n 2. Insert at tail \n 3. Insert at position  \n 4. Delete at head \n 5. Delete at tail \n 6. Delete at position \n 7. Print \n 8. Exit \n");
+        printf("Menu \n 1. Insert at head \n 2. Insert at tail \n 3. Insert at position  \n 4. Delete at head \n 5. Delete at tail  \n 6. Print \n 7. Exit \n 8. Reverse \n");
         printf("Enter the choice: ");
         scanf("%d", &choice);
 
@@ -222,6 +271,19 @@ int main()
             break;
         }
 
+        case 4:
+        { /*  delete_start */
+            head = delete_start(head);
+            printList(head);
+            break;
+        }
+        case 5:
+        { /*  delete_end */
+            head = delete_end(head);
+            printList(head);
+            break;
+        }
+
         case 6:
         { /*  Print */
 
@@ -232,16 +294,18 @@ int main()
         }
 
         case 7:
-        { /*  Print */
 
-            if (head == NULL)
-            {
-                printf("List is empty");
-            }
-            else
-            {
-                printList(head);
-            }
+        { /*  exit */
+
+            exit(0);
+            break;
+        }
+        case 8:
+
+        { /*  Reverse */
+
+            head = recursiveReverseLL(head);
+            printList(head);
 
             break;
         }
