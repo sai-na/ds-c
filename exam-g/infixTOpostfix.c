@@ -1,136 +1,124 @@
-#define SIZE 50 /* Size of Stack */
-#include <ctype.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
 
-char s[SIZE];
-int top = -1; /* Global declarations */
+void push(int);
+int pop();
+int priority(char);
+int top = -1;
+int stack[20];
+char *infixtopostfix();
+int evaluatepostfix(char *);
 
-/* Function to remove spaces from given string */
-void RemoveSpaces(char *source)
+void main()
 {
-    char *i = source;
-    char *j = source;
-    while (*j != 0)
+    char *postfix;
+    int ans;
+    postfix = infixtopostfix();
+    printf("postfix expression is %s\n", postfix);
+    ans = evaluatepostfix(postfix);
+    printf("result is %d", ans);
+}
+
+char *infixtopostfix()
+{
+    char infix[20], ch;
+    static char postfix[20];
+    int i, j = 0;
+    printf("Enter the infix expression:");
+    scanf("%s", infix);
+    for (i = 0; infix[i] != '\0'; i++)
     {
-        *i = *j++;
-        if (*i != ' ')
-            i++;
-    }
-    *i = 0;
-}
-
-/* Function for PUSH operation */
-void push(char elem)
-{
-    s[++top] = elem;
-}
-
-/* Function for POP operation */
-char pop()
-{
-    return (s[top--]);
-}
-
-/* Function for precedence */
-int pr(char elem)
-{
-    switch (elem)
-    {
-    case '#':
-        return 0;
-    case '(':
-        return 1;
-    case '+':
-    case '-':
-        return 2;
-    case '*':
-    case '/':
-        return 3;
-    }
-}
-
-/*
- * Function to convert from infix to postfix expression
- */
-void infix_to_postfix(char *infix, char *postfix)
-{
-    char ch, elem;
-    int i = 0, k = 0;
-
-    RemoveSpaces(infix);
-    push('#');
-
-    while ((ch = infix[i++]) != '\n')
-    {
+        ch = infix[i];
         if (ch == '(')
             push(ch);
-        else if (isalnum(ch))
-            postfix[k++] = ch;
+        else if (isdigit(ch))
+        {
+            postfix[j] = ch;
+            j++;
+        }
         else if (ch == ')')
         {
-            while (s[top] != '(')
-                postfix[k++] = pop();
-            elem = pop(); /* Remove ( */
+            while (stack[top] != '(' && top != -1)
+            {
+                postfix[j] = pop();
+                j++;
+            }
+            pop();
         }
         else
-        { /* Operator */
-            while (pr(s[top]) >= pr(ch))
-                postfix[k++] = pop();
+        {
+            while (priority(ch) <= priority(stack[top]) && top != -1)
+            {
+                postfix[j] = pop();
+                j++;
+            }
             push(ch);
         }
     }
 
-    while (s[top] != '#') /* Pop from stack till empty */
-        postfix[k++] = pop();
+    while (top != -1)
+    {
+        postfix[j] = pop();
+        j++;
+    }
 
-    postfix[k] = 0; /* Make postfix as valid string */
+    return postfix;
 }
 
-/*
- * Function to evaluate a postfix expression
- */
-int eval_postfix(char *postfix)
+int priority(char ch)
 {
-    char ch;
-    int i = 0, op1, op2;
-    while ((ch = postfix[i++]) != 0)
+    if (ch == '(')
+        return 0;
+
+    else if (ch == '+' || ch == '-')
+        return 1;
+    else if (ch == '*' || ch == '/')
+        return 2;
+    else if (ch == '^')
+        return 3;
+}
+
+void push(int x)
+{
+    top++;
+    stack[top] = x;
+}
+
+int pop()
+{
+    return stack[top--];
+}
+
+int evaluatepostfix(char *postfix)
+{
+    int op1, op2;
+
+    for (int i = 0; postfix[i] != '\0'; i++)
     {
-        if (isdigit(ch))
-            push(ch - '0'); /* Push the operand */
+        if (isdigit(postfix[i]))
+            push(postfix[i] - 48);
+
         else
-        { /* Operator,pop two operands */
-            op2 = pop();
+        {
             op1 = pop();
-            switch (ch)
+            op2 = pop();
+            switch (postfix[i])
             {
             case '+':
                 push(op1 + op2);
                 break;
             case '-':
-                push(op1 - op2);
+                push(op2 - op1);
                 break;
             case '*':
                 push(op1 * op2);
                 break;
             case '/':
-                push(op1 / op2);
+                push(op2 / op1);
                 break;
             }
         }
     }
-    return s[top];
-}
-
-void main()
-{ /* Main Program */
-
-    char infx[50], pofx[50];
-    printf("\nInput the infix expression: ");
-    fgets(infx, 50, stdin);
-
-    infix_to_postfix(infx, pofx);
-
-    printf("\nGiven Infix Expression: %sPostfix Expression: %s", infx, pofx);
-    top = -1;
-    printf("\nResult of evaluation of postfix expression : %d", eval_postfix(pofx));
+    return pop();
 }
