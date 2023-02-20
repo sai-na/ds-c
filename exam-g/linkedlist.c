@@ -77,7 +77,7 @@ node *delete_tail(node *head)
         node *ptr1 = head;
         node *ptr2 = ptr1->link;
 
-        while (ptr2->link = NULL)
+        while (ptr2->link != NULL)
         {
             ptr1 = ptr2;
             ptr2 = ptr2->link;
@@ -86,7 +86,6 @@ node *delete_tail(node *head)
         free(ptr2);
         return head;
     }
-    return head;
 }
 
 node *reverse(node *head)
@@ -103,7 +102,10 @@ node *reverse(node *head)
 
 void display(node *head)
 {
+
     node *temp = head;
+
+    printf("\n");
     if (head == NULL)
     {
         printf("empty linked list");
@@ -119,6 +121,8 @@ void display(node *head)
 
         temp = temp->link;
     }
+
+    printf("\n \n");
 }
 
 void printList(node *head)
@@ -143,7 +147,7 @@ int main()
     while (choice != 6)
     {
 
-        printf("select choice \n 1. insert at front\n 2. insert at end\n 3. delete at front\n 4.delete at end ");
+        printf("\nselect choice \n 1. insert at front\n 2. insert at end\n 3. delete at front\n 4.delete at end\n 5. reverse\n 6. exit \n");
         scanf("%d", &choice);
 
         switch (choice)

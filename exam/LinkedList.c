@@ -170,14 +170,14 @@ node_t *delete_end(node_t *head)
     else
     {
         node_t *ptr1 = head;
-        node_t *ptr = ptr1->next;
-        while (ptr->next != NULL)
+        node_t *ptr2 = ptr1->next;
+        while (ptr2->next != NULL)
         {
-            ptr1 = ptr;
-            ptr = ptr->next;
+            ptr1 = ptr2;
+            ptr2 = ptr2->next;
         }
         ptr1->next = NULL;
-        free(ptr);
+        free(ptr2);
         printf("\nDeleted Node from the last ...");
         return head;
     }
