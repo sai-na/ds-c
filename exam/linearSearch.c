@@ -9,10 +9,10 @@ void main()
 
     int array[no_of_elements];
 
-    for (int i = 0; i <= no_of_elements - 1; i++)
+    for (int i = 0; i < no_of_elements; i++)
     {
 
-        printf("Enter element at index %d : ", i);
+        printf("Enter element at index %d : ", i + 1);
         scanf("%d", &array[i]);
     }
 
@@ -23,7 +23,7 @@ void main()
     {
         if (array[i] == element)
         {
-            printf("Element found at index %d\n", i);
+            printf("Element found at index %d\n", i + 1);
             found = 1;
         }
     }
