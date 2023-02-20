@@ -18,8 +18,15 @@ node_t *create_new_node(int data)
     return result;
 }
 
+// insert at head of list
+node_t *insert_at_head(node_t *head, node_t *node_to_insert)
+{
+    node_to_insert->next = head;
+    return node_to_insert;
+}
+
 // insert at tail of list
-node_t *insert_at_tail(node_t *head, node_t *node_to_insert)
+void insert_at_tail(node_t *head, node_t *node_to_insert)
 {
     node_t *temp = head;
     while (temp->next != NULL) // traverse till last node
@@ -27,12 +34,6 @@ node_t *insert_at_tail(node_t *head, node_t *node_to_insert)
         temp = temp->next;
     }
     temp->next = node_to_insert;
-}
-// insert at head of list
-node_t *insert_at_head(node_t *head, node_t *node_to_insert)
-{
-    node_to_insert->next = head;
-    return node_to_insert;
 }
 
 // print nodes
