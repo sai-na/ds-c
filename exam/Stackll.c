@@ -2,18 +2,21 @@
 #include <stdlib.h>
 
 // Structure to create a node with data and the next pointer
-struct Node
+struct node
 {
     int data;
-    struct Node *next;
+    struct node *next;
 };
-struct Node *top = NULL;
+
+typedef struct node Node;
+
+Node *top = NULL;
 
 // Push() operation on a  stack
 void push(int value)
 {
-    struct Node *newNode;
-    newNode = (struct Node *)malloc(sizeof(struct Node));
+
+    Node *newNode = malloc(sizeof(Node));
     newNode->data = value; // assign value to the node
     if (top == NULL)
     {
@@ -35,7 +38,7 @@ int pop()
     }
     else
     {
-        struct Node *temp = top;
+        Node *temp = top;
         int temp_data = top->data;
         top = top->next;
         free(temp);
@@ -53,7 +56,7 @@ void display()
     else
     {
         printf("The stack is \n");
-        struct Node *temp = top;
+        Node *temp = top;
         while (temp->next != NULL)
         {
             printf("%d--->", temp->data);
