@@ -30,7 +30,7 @@ void pop()
     }
     else
     {
-        printf("Under flow");
+        printf("Under flow\n\n");
     }
 }
 
