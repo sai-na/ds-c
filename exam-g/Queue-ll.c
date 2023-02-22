@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <stdlib.h>
+
 struct node
 {
     int data;
@@ -91,7 +91,7 @@ int main()
             display();
             break;
         case 4:
-            exit(0);
+
             break;
         default:
             printf("\nWrong Choice\n");
